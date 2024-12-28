@@ -1,7 +1,7 @@
-import {nextui} from '@nextui-org/theme'
+import { nextui } from '@nextui-org/theme';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,19 +15,20 @@ module.exports = {
       },
     },
   },
-    plugins: [
+  darkMode: 'class',
+  plugins: [
     nextui({
       themes: {
         light: {
           layout: {}, // light theme layout tokens
-          colors: {} // light theme colors
+          colors: {}, // light theme colors
         },
         dark: {
           layout: {}, // dark theme layout tokens
-          colors: {} // dark theme colors
+          colors: {}, // dark theme colors
         },
         modern: {
-          extend: 'dark', // <- inherit default values from dark theme
+          extend: 'dark', // inherit default values from dark theme
           colors: {
             background: '#0D001A',
             foreground: '#ffffff',
@@ -43,27 +44,27 @@ module.exports = {
               800: '#FDD5F9',
               900: '#FEECFE',
               DEFAULT: '#DD62ED',
-              foreground: '#ffffff'
+              foreground: '#ffffff',
             },
-            focus: '#F182F6'
+            focus: '#F182F6',
           },
           layout: {
             disabledOpacity: '0.3',
             radius: {
               small: '1px',
               medium: '2px',
-              large: '4px'
+              large: '4px',
             },
             borderWidth: {
               small: '1px',
               medium: '2px',
-              large: '3px'
-            }
-          }
-        }
-      }
-    })
+              large: '3px',
+            },
+          },
+        },
+      },
+    }),
   ],
-  darkMode: "class",
-  plugins: [nextui()],
-}
+};
+
+export default config;

@@ -2,17 +2,15 @@ import "@/src/styles/globals.css";
 import { Metadata } from "next";
 import clsx from "clsx";
 
-import { Providers } from "./providers";
 import { siteConfig } from "@/src/config/site";
-import { fontSans } from "@/src/config/fonts";
-import { VscCopy } from "react-icons/vsc";
-import { VscGithubAlt } from "react-icons/vsc";
-import { IoCodeSlashOutline } from "react-icons/io5";
-import { CiMail } from "react-icons/ci";
+import { fontMono, fontSans } from "@/src/config/fonts";
 import TopNavbar from "../components/shared/TopNavbar";
 import Footer from "../components/shared/Footer";
 import Sidebar from "../components/shared/Sidebar";
 import FileExplorer from "../components/shared/FileExplorer";
+import { Providers } from "../lib/providers";
+import Link from "next/link";
+import Navlink from "../components/Navlink";
 
 export const metadata: Metadata = {
   title: {
@@ -35,11 +33,11 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-gray-900 text-gray-100 font-sans antialiased",
-          fontSans.variable
+          "h-screen bg-[#24292E] text-gray-100 font-mono antialiased",
+          fontMono.variable
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers>
           {/* Root layout mimicking VS Code */}
           <div className="flex h-screen">
 
@@ -50,19 +48,25 @@ export default function RootLayout({
               <TopNavbar />
 
               {/* Main Editor Area */}
-              <main className="flex flex-grow">
+              <main className="flex flex-grow ">
                 {/* Sidebar */}
-                <Sidebar />
+                <div className="hidden md:block">
+                  <Sidebar />
+                </div>
 
                 {/* File Explorer */}
-                <FileExplorer />
+                <div className="bg-[#1F2428] border-r hidden md:block border-[#131618]">
+                  <FileExplorer />
+                </div>
 
                 {/* Editor */}
                 <section className="flex-grow">
-                  <div className="bg-[#1F2428] px-4 py-2">
-                    nav
+                  <div className="w-screen md:w-full">
+                    <Navlink />
                   </div>
-                  {children}
+                  <div className="h-[calc(100vh-100px)] overflow-y-scroll ">
+                    {children}
+                  </div>
                 </section>
               </main>
               {/* Bottom Status Bar */}
@@ -72,6 +76,6 @@ export default function RootLayout({
           </div>
         </Providers>
       </body>
-    </html>
+    </html >
   );
 }
