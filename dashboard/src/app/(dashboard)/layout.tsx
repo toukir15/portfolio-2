@@ -13,6 +13,7 @@ import { MdPayment } from "react-icons/md";
 import { GrAppsRounded } from "react-icons/gr";
 import { usePathname } from "next/navigation";
 import { FaUser } from "react-icons/fa";
+import DashboardNav from "@/src/components/shared/DashboardNav";
 
 const { Header, Content, Sider } = Layout;
 const items = [
@@ -107,25 +108,21 @@ export default function RootLayout({
 
                 </Sider>
 
-                <Layout style={{ marginLeft: collapsed ? 80 : 200 }}>
+                <Layout className="bg-gray-200" style={{ marginLeft: collapsed ? 80 : 200 }}>
                     {/* Header */}
-                    <Header style={{ padding: 0, background: colorBgContainer }} >
-                        hello
+                    <Header className="flex items-center justify-end" style={{ padding: 0, background: colorBgContainer }} >
+                        <DashboardNav />
                     </Header>
 
                     {/* Main content area */}
                     <Content style={{ margin: "0 16px" }}>
                         <Breadcrumb
                             style={{ margin: "16px 0" }}
-                            items={[
-                                { title: "Dashboard" },
-                                { title: <span className="text-green-500 font-medium">{path}</span> },
-                            ]}
                         />
 
 
                         {/* Main content */}
-                        <div className="xl:p-6 min-h-[360px] bg-white rounded-lg">
+                        <div className="xl:p-6 min-h-[calc(100vh-120px)] bg-gray-100 rounded-lg">
                             {children}
                         </div>
                     </Content>

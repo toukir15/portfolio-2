@@ -7,6 +7,7 @@ const router = express.Router()
 
 router.post(
   '/register',
+  multerUpload.single("file"),
   AuthControllers.registerUser,
 )
 router.post('/login', AuthControllers.loginUser)

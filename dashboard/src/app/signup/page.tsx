@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import authimg from "../../../public/auth.png";
 import { Button, Input, Textarea } from "@nextui-org/react";
+import { useUserRegister } from "@/src/hooks/auth.hook";
+import { toast } from "sonner";
 
 interface LoginFormInputs {
     email: string;
@@ -12,6 +14,7 @@ interface LoginFormInputs {
     name: string;
     designation: string;
     description: string;
+    address: string;
     image: FileList;
 }
 
@@ -19,9 +22,13 @@ export default function LoginPage() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<LoginFormInputs>();
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { mutate: handleSignup, isSuccess, isError } = useUserRegister();
 
     const onSubmit = (data: LoginFormInputs) => {
         const formData = new FormData();
@@ -30,12 +37,14 @@ export default function LoginPage() {
             email: data.email,
             designation: data.designation,
             description: data.description,
+            address: data.address,
             password: data.password,
         };
 
         formData.append("data", JSON.stringify(signupData));
         formData.append("file", data.image[0]);
-        console.log("Form submitted successfully!", data);
+        setIsLoading(true);
+        handleSignup(formData);
     };
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +57,18 @@ export default function LoginPage() {
             reader.readAsDataURL(file);
         }
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Successfully registered user!");
+            reset();
+            setImagePreview(null);
+        }
+        if (isError) {
+            toast.error("Failed to register user.");
+        }
+        setIsLoading(false);
+    }, [isSuccess, isError, reset]);
 
     return (
         <div className="flex h-screen w-full">
@@ -92,33 +113,15 @@ export default function LoginPage() {
                         </div>
                         <div>
                             <Input
-                                {...register("designation", {
-                                    required: "Designation is required",
-                                })}
+                                {...register("address", { required: "Address is required" })}
                                 type="text"
                                 radius="sm"
-                                label="Designation"
+                                label="Address"
                                 size="sm"
-                                className={errors.designation ? "border-red-500 focus:border-red-500" : ""}
+                                className={errors.address ? "border-red-500 focus:border-red-500" : ""}
                             />
-                            {errors.designation && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.designation.message}
-                                </p>
-                            )}
-                        </div>
-                        <div>
-                            <Textarea
-                                {...register("description", {
-                                    required: "Description is required",
-                                })}
-                                label="Description"
-                                className={errors.description ? "border-red-500 focus:border-red-500" : ""}
-                            />
-                            {errors.description && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.description.message}
-                                </p>
+                            {errors.address && (
+                                <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>
                             )}
                         </div>
                         <div>
@@ -131,9 +134,30 @@ export default function LoginPage() {
                                 className={errors.password ? "border-red-500 focus:border-red-500" : ""}
                             />
                             {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.password.message}
-                                </p>
+                                <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                            )}
+                        </div>
+                        <div>
+                            <Input
+                                {...register("designation", { required: "Designation is required" })}
+                                type="text"
+                                radius="sm"
+                                label="Designation"
+                                size="sm"
+                                className={errors.designation ? "border-red-500 focus:border-red-500" : ""}
+                            />
+                            {errors.designation && (
+                                <p className="text-red-500 text-sm mt-1">{errors.designation.message}</p>
+                            )}
+                        </div>
+                        <div>
+                            <Textarea
+                                {...register("description", { required: "Description is required" })}
+                                label="Description"
+                                className={errors.description ? "border-red-500 focus:border-red-500" : ""}
+                            />
+                            {errors.description && (
+                                <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
                             )}
                         </div>
                         <div>
@@ -145,9 +169,7 @@ export default function LoginPage() {
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-indigo-600 file:text-gray-700 hover:file:border-indigo-700 cursor-pointer"
                             />
                             {errors.image && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.image.message}
-                                </p>
+                                <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>
                             )}
                             {imagePreview && (
                                 <div className="mt-2">
@@ -163,9 +185,11 @@ export default function LoginPage() {
                         </div>
                         <Button
                             type="submit"
-                            className="w-full rounded-md bg-indigo-600 py-2 px-4 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            disabled={isLoading}
+                            className={`w-full rounded-md py-2 px-4 text-white ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"
+                                }`}
                         >
-                            Sign in
+                            {isLoading ? "Submitting..." : "Sign in"}
                         </Button>
                     </form>
                 </div>

@@ -1,3 +1,4 @@
+import { Types } from "mongoose"
 
 export type TLoginUser = {
   email: string
@@ -9,4 +10,9 @@ export type TRegisterUser = {
   email: string
   password: string
   address: string
+  designation: string
+  description: string
+  profilePhoto: string
+  skill: Types.ObjectId
+  social: Types.ObjectId
 }

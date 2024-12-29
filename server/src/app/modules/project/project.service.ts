@@ -1,6 +1,10 @@
 import Project from "./project.model"
 
 
+const getProjectsFromDB = async () => {
+    const result = await Project.find()
+    return result
+}
 
 const createProjectIntoDB = async (data: any, file: any) => {
     const parseData = JSON.parse(data)
@@ -9,9 +13,17 @@ const createProjectIntoDB = async (data: any, file: any) => {
     return result
 }
 
+const updateProjectIntoDB = async (data: any, file: any, id: string) => {
+    const parseData = JSON.parse(data)
+    if (file) {
+        parseData.image = file.path
+    }
+    const result = await Project.findByIdAndUpdate(id, parseData, { new: true })
+    return result
+}
 
-const getProjectsFromDB = async () => {
-    const result = await Project.find()
+const deleteProjectFromDB = async (id: string) => {
+    const result = await Project.findByIdAndDelete(id)
     return result
 }
 
@@ -26,5 +38,7 @@ const getProjectsFromDB = async () => {
 
 export const ProjectServices = {
     createProjectIntoDB,
-    getProjectsFromDB
+    getProjectsFromDB,
+    updateProjectIntoDB,
+    deleteProjectFromDB
 }

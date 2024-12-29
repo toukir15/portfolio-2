@@ -5,7 +5,12 @@ import { AuthServices } from './auth.service'
 import { catchAsync } from '../../utils/catchAsync'
 
 const registerUser = catchAsync(async (req, res) => {
-  const result = await AuthServices.registerUser(req.body)
+
+  const registerData = {
+    ...JSON.parse(req.body.data),
+    profilePhoto: req.file?.path
+  }
+  const result = await AuthServices.registerUser(registerData)
   const { refreshToken, accessToken } = result
   res.cookie('refreshToken', refreshToken, {
     secure: config.NODE_ENV === 'production',

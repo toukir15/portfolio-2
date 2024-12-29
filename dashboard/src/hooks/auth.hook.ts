@@ -13,7 +13,9 @@ import {
 export const useUserRegister = () => {
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["REGISTER"],
-    mutationFn: async (data) => await userRegister(data),
+    mutationFn: async (data) => {
+      return await userRegister(data)
+    },
   });
 };
 

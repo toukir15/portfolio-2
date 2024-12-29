@@ -1,45 +1,53 @@
 import { Space, Table } from "antd";
 import type { TableProps } from "antd";
 
+interface Action {
+  label: string;
+  onClick: (data: any, record: any) => void;
+  className?: string;
+  disabled?: (record: any) => boolean; // Optional disabled condition for actions
+}
+
 interface CustomTableProps {
   columns: TableProps<any>["columns"];
   data: any[];
-  onDelete?: (id: string) => void;
-  deleteText?: string;
+  actions?: Action[];
   loading: boolean;
   pageSize?: number;
 }
 
 export const CustomTable = ({
-  columns =  [],
+  columns = [],
   data,
-  onDelete,
-  deleteText,
+  actions = [],
   loading,
-  pageSize = 10,
+  pageSize = 12,
 }: CustomTableProps) => {
-  const handleDelete = (id: string) => {
-    onDelete && onDelete(id);
-  };
-
-  const tableColumns = deleteText
+  const tableColumns = actions.length
     ? [
-        ...columns,
-        {
-          title: "Action",
-          key: "action",
-          render: (_: any, record: any) => (
-            <Space size="middle">
-              <button
-                onClick={() => handleDelete(record._id)}
-                className="bg-red-500 hover:bg-red-600 transition duration-150 py-1 px-3 rounded text-white"
-              >
-                {deleteText}
-              </button>
-            </Space>
-          ),
-        },
-      ]
+      ...columns,
+      {
+        title: "Actions",
+        key: "actions",
+        render: (_: any, record: any) => (
+          <Space size="middle">
+            {actions.map((action, index) => {
+              const isDisabled = action.disabled?.(record); // Determine if the action is disabled
+              return (
+                <button
+                  key={index}
+                  onClick={() => !isDisabled && action.onClick(record, record)}
+                  className={`${action.className || "bg-blue-500 hover:bg-blue-600 transition duration-150 py-1 px-3 rounded text-white"} ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                  disabled={isDisabled}
+                >
+                  {action.label}
+                </button>
+              );
+            })}
+          </Space>
+        ),
+      },
+    ]
     : columns;
 
   return (

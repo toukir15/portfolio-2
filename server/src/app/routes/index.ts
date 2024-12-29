@@ -3,6 +3,7 @@ import { UserRouter } from '../modules/user/user.route'
 import { AuthRouter } from '../modules/Auth/auth.route'
 import { SocialRouter } from '../modules/social/social.route'
 import { ProjectRouter } from '../modules/project/project.route'
+import { SkillRouter } from '../modules/skill/skill.route'
 
 const router = express.Router()
 
@@ -22,6 +23,10 @@ const moduleRoutes = [
   {
     path: '/project',
     route: ProjectRouter,
+  },
+  {
+    path: '/skill',
+    route: SkillRouter,
   },
 ]
 

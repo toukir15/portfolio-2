@@ -10,7 +10,6 @@ import { User } from '../user/user.model'
 const registerUser = async (payload: TRegisterUser) => {
   // checking if the user is exist
   const user = await User.findOne({ email: payload?.email })
-
   if (user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is already exist!')
   }
@@ -25,15 +24,14 @@ const registerUser = async (payload: TRegisterUser) => {
 
   //create new user
   const newUser = await User.create(payload)
-
+  console.log({ newUser })
   // create bookmark collection
 
-  //create token and sent to the  client
+  // create token and sent to the  client
   const jwtPayload = {
     _id: newUser?._id.toString(),
     name: newUser?.name,
     email: newUser.email,
-    role: newUser?.role,
     profilePhoto: newUser?.profilePhoto,
     isVerified: newUser?.isVerified,
   }
@@ -49,7 +47,6 @@ const registerUser = async (payload: TRegisterUser) => {
     config.jwt_refresh_secret as string,
     config.jwt_refresh_expires_in as string,
   )
-
   return {
     accessToken,
     refreshToken,
@@ -73,12 +70,12 @@ const loginUser = async (payload: TLoginUser) => {
   const jwtPayload = {
     _id: user?._id.toString(),
     name: user?.name,
-    email: user.email,
-    role: user?.role,
+    email: user?.email,
     profilePhoto: user?.profilePhoto,
-    isVerified: user?.isVerified,
-    bookmark: user?.bookmark,
-  }
+    designation: user?.designation,
+    address: user?.address,
+    description: user?.description,
+  };
 
   const accessToken = createToken(
     jwtPayload,

@@ -4,60 +4,59 @@ import { NextFunction, Request, Response } from 'express'
 import { catchAsync } from '../../utils/catchAsync'
 import httpStatus from 'http-status'
 import sendResponse from '../../utils/sendResponse'
-import { ProjectServices } from './project.service'
+import { SkillServices } from './skill.services'
 
-const getProjects = catchAsync(
+const createSkill = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        const result = await ProjectServices.getProjectsFromDB()
+        const result = await SkillServices.createSkillIntoDB(req.body.data, req.file)
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
-            message: 'Projects retrive successfully',
+            message: 'Create skill successfully',
             data: result,
         })
     },
 )
 
-const createProject = catchAsync(
+const updateSkill = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        const result = await ProjectServices.createProjectIntoDB(req.body.data, req.file)
+        const result = await SkillServices.updateSkillIntoDB(req.body.data, req.file, req.params.id)
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
-            message: 'Create project successfully',
+            message: 'Update skill successfully',
             data: result,
         })
     },
 )
 
-const updateProject = catchAsync(
+const getSkills = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        const result = await ProjectServices.updateProjectIntoDB(req.body.data, req.file, req.params.id)
+        const result = await SkillServices.getSkillsFromDB()
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
-            message: 'Update project successfully',
+            message: 'Retrive skills successfully',
             data: result,
         })
     },
 )
 
-const deleteProject = catchAsync(
+const deleteSkill = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        const result = await ProjectServices.deleteProjectFromDB(req.params.id)
+        const result = await SkillServices.deleteSkillFromDB(req.params.id)
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
-            message: 'delete project successfully',
+            message: 'Delete skill successfully',
             data: result,
         })
     },
 )
 
-
-export const ProjectController = {
-    createProject,
-    getProjects,
-    updateProject,
-    deleteProject
+export const SkillControllers = {
+    createSkill,
+    updateSkill,
+    getSkills,
+    deleteSkill
 }

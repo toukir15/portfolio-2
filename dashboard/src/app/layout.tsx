@@ -19,7 +19,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+        <Providers>
           <div className="bg-white">
             {children}
           </div>

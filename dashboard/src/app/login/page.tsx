@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import authimg from "../../../public/auth.png";
 import { Button, Input } from "@nextui-org/react";
+import { useUserLogin } from "@/src/hooks/auth.hook";
+import { toast } from "sonner";
 
 interface LoginFormInputs {
     email: string;
@@ -15,13 +17,29 @@ export default function LoginPage() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<LoginFormInputs>();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { mutate: handleLogin, isError, isSuccess } = useUserLogin();
 
     const onSubmit = (data: LoginFormInputs) => {
-        console.log("Form Data:", data);
-        // Handle the form submission logic here
+        setIsLoading(true);
+        handleLogin(data);
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Logged in", { duration: 2000 });
+            reset()
+        }
+
+        if (isError) {
+            toast.error("Failed to log in", { duration: 2000 });
+        }
+        setIsLoading(false);
+    }, [isSuccess, isError]);
 
     return (
         <div className="flex h-screen w-full">
@@ -68,8 +86,9 @@ export default function LoginPage() {
                         <Button
                             type="submit"
                             className="w-full rounded-md bg-indigo-600 py-2 px-4 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            isDisabled={isLoading}
                         >
-                            Sign in
+                            {isLoading ? "login.." : "Login"}
                         </Button>
                     </form>
                 </div>

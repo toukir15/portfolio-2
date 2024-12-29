@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
+import UserProvider from "@/src/context/user.provider";
 
 const queryClient = new QueryClient();
 export function Providers({ children }: any) {
@@ -13,10 +14,12 @@ export function Providers({ children }: any) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NextUIProvider navigate={router.push}>
-        <Toaster />
-        <NextThemesProvider>{children}</NextThemesProvider>
-      </NextUIProvider>
+      <UserProvider>
+        <NextUIProvider navigate={router.push}>
+          <Toaster />
+          <NextThemesProvider>{children}</NextThemesProvider>
+        </NextUIProvider>
+      </UserProvider>
     </QueryClientProvider>
   );
 }
