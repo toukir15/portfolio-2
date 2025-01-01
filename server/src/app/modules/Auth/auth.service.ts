@@ -24,8 +24,6 @@ const registerUser = async (payload: TRegisterUser) => {
 
   //create new user
   const newUser = await User.create(payload)
-  console.log({ newUser })
-  // create bookmark collection
 
   // create token and sent to the  client
   const jwtPayload = {
@@ -75,6 +73,7 @@ const loginUser = async (payload: TLoginUser) => {
     designation: user?.designation,
     address: user?.address,
     description: user?.description,
+    about: user?.about,
   };
 
   const accessToken = createToken(
@@ -184,12 +183,20 @@ const sendForgetEmail = async (email: string) => {
 
 const editProfile = async (payload: any, profilePhoto: any, userId: string) => {
   const updatedData: any = {}
-
   if (payload.name) {
     updatedData.name = payload.name
   }
   if (payload.address) {
     updatedData.address = payload.address
+  }
+  if (payload.description) {
+    updatedData.description = payload.description
+  }
+  if (payload.designation) {
+    updatedData.designation = payload.designation
+  }
+  if (payload.about) {
+    updatedData.about = payload.about
   }
   if (profilePhoto?.path) {
     updatedData.profilePhoto = profilePhoto.path
@@ -200,12 +207,13 @@ const editProfile = async (payload: any, profilePhoto: any, userId: string) => {
   const jwtPayload = {
     _id: user?._id.toString(),
     name: user?.name,
-    email: user.email,
-    role: user?.role,
+    email: user?.email,
     profilePhoto: user?.profilePhoto,
-    isVerified: user?.isVerified,
-    bookmark: user?.bookmark,
-  }
+    designation: user?.designation,
+    address: user?.address,
+    description: user?.description,
+    about: user?.about,
+  };
 
   const accessToken = createToken(
     jwtPayload,

@@ -1,18 +1,17 @@
 import TypewriterComponent from "../components/home/TypewriterComponent";
 import Actions from "../components/home/Actions";
 import { getUser } from "../services/user/query";
-import profile from "../../public/profile.jpeg"
 import Image from "next/image";
 export default async function Home() {
   const { data } = await getUser()
   return (
-    <section className="h-[calc(100vh-100px)] flex gap-10 flex-col md:flex-row justify-center md:justify-start items-center bg-gradient-to-b from-[#1F1F1F] to-[#2D2D2D] px-4 md:px-16 text-white">
-      <div className="xl:order-2">
+    <section className="h-[calc(100vh-100px)] flex gap-10 flex-col xl:flex-row justify-center lg:justify-start items-center bg-gradient-to-b from-[#1F1F1F] to-[#2D2D2D] px-4 md:px-16 text-white">
+      <div className="2xl:order-2">
         <div className="h-[200px] w-[200px] md:h-[300px] md:w-[300px] lg:h-[350px] lg:w-[350px]">
-          <Image src={profile} className="rounded-full" height={350} width={350} alt={"dsf"}></Image>
+          <Image src={data.profilePhoto} className="rounded-full" height={350} width={350} alt={"dsf"}></Image>
         </div>
       </div>
-      <div className="max-w-3xl xl:order-1">
+      <div className="max-w-3xl 2xl:order-1">
         <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold leading-tight">
           Hi, I'm <span className="text-[#F9826C]">{data?.name}</span>
         </h1>

@@ -8,11 +8,24 @@ import { SocialServices } from './social.services'
 
 const createSocial = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        const result = await SocialServices.createSocialIntoDB(req.body)
+        const userId = req.user._id
+        const result = await SocialServices.createSocialIntoDB(req.body, userId)
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
             message: 'Create social document successfully',
+            data: result,
+        })
+    },
+)
+
+const updateSocial = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const result = await SocialServices.updateSocialIntoDB(req.body, req.user._id)
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: 'Update social document successfully',
             data: result,
         })
     },
@@ -47,5 +60,6 @@ const sendEmailToMe = catchAsync(
 export const SocialControllers = {
     createSocial,
     sendEmailToMe,
-    getSocial
+    getSocial,
+    updateSocial
 }

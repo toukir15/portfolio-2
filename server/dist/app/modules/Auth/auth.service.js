@@ -32,13 +32,11 @@ const registerUser = (payload) => __awaiter(void 0, void 0, void 0, function* ()
     payload.password = hash;
     //create new user
     const newUser = yield user_model_1.User.create(payload);
-    // create bookmark collection
-    //create token and sent to the  client
+    // create token and sent to the  client
     const jwtPayload = {
         _id: newUser === null || newUser === void 0 ? void 0 : newUser._id.toString(),
         name: newUser === null || newUser === void 0 ? void 0 : newUser.name,
         email: newUser.email,
-        role: newUser === null || newUser === void 0 ? void 0 : newUser.role,
         profilePhoto: newUser === null || newUser === void 0 ? void 0 : newUser.profilePhoto,
         isVerified: newUser === null || newUser === void 0 ? void 0 : newUser.isVerified,
     };
@@ -63,11 +61,12 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const jwtPayload = {
         _id: user === null || user === void 0 ? void 0 : user._id.toString(),
         name: user === null || user === void 0 ? void 0 : user.name,
-        email: user.email,
-        role: user === null || user === void 0 ? void 0 : user.role,
+        email: user === null || user === void 0 ? void 0 : user.email,
         profilePhoto: user === null || user === void 0 ? void 0 : user.profilePhoto,
-        isVerified: user === null || user === void 0 ? void 0 : user.isVerified,
-        bookmark: user === null || user === void 0 ? void 0 : user.bookmark,
+        designation: user === null || user === void 0 ? void 0 : user.designation,
+        address: user === null || user === void 0 ? void 0 : user.address,
+        description: user === null || user === void 0 ? void 0 : user.description,
+        about: user === null || user === void 0 ? void 0 : user.about,
     };
     const accessToken = (0, verifyJWT_1.createToken)(jwtPayload, config_1.default.jwt_access_secret, config_1.default.jwt_access_expires_in);
     const refreshToken = (0, verifyJWT_1.createToken)(jwtPayload, config_1.default.jwt_refresh_secret, config_1.default.jwt_refresh_expires_in);
@@ -139,6 +138,15 @@ const editProfile = (payload, profilePhoto, userId) => __awaiter(void 0, void 0,
     if (payload.address) {
         updatedData.address = payload.address;
     }
+    if (payload.description) {
+        updatedData.description = payload.description;
+    }
+    if (payload.designation) {
+        updatedData.designation = payload.designation;
+    }
+    if (payload.about) {
+        updatedData.about = payload.about;
+    }
     if (profilePhoto === null || profilePhoto === void 0 ? void 0 : profilePhoto.path) {
         updatedData.profilePhoto = profilePhoto.path;
     }
@@ -147,11 +155,12 @@ const editProfile = (payload, profilePhoto, userId) => __awaiter(void 0, void 0,
     const jwtPayload = {
         _id: user === null || user === void 0 ? void 0 : user._id.toString(),
         name: user === null || user === void 0 ? void 0 : user.name,
-        email: user.email,
-        role: user === null || user === void 0 ? void 0 : user.role,
+        email: user === null || user === void 0 ? void 0 : user.email,
         profilePhoto: user === null || user === void 0 ? void 0 : user.profilePhoto,
-        isVerified: user === null || user === void 0 ? void 0 : user.isVerified,
-        bookmark: user === null || user === void 0 ? void 0 : user.bookmark,
+        designation: user === null || user === void 0 ? void 0 : user.designation,
+        address: user === null || user === void 0 ? void 0 : user.address,
+        description: user === null || user === void 0 ? void 0 : user.description,
+        about: user === null || user === void 0 ? void 0 : user.about,
     };
     const accessToken = (0, verifyJWT_1.createToken)(jwtPayload, config_1.default.jwt_access_secret, config_1.default.jwt_access_expires_in);
     const refreshToken = (0, verifyJWT_1.createToken)(jwtPayload, config_1.default.jwt_refresh_secret, config_1.default.jwt_refresh_expires_in);

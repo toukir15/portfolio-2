@@ -1,3 +1,6 @@
+import envConfig from "@/src/config/envConfig";
+
+
 export const getUser = async () => {
   try {
     const fetchOption = {
@@ -7,8 +10,7 @@ export const getUser = async () => {
     };
 
     const res = await fetch(
-      `http://localhost:5000/api/v1/users`,
-      // `https://protfolioserver.vercel.app/api/v1/users`,
+      `${envConfig.server_url}/api/v1/users`,
       fetchOption
     );
 
@@ -25,3 +27,4 @@ export const getUser = async () => {
     throw error;
   }
 };
+

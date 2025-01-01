@@ -8,6 +8,10 @@ import { FieldValues } from "react-hook-form";
 export const userRegister = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/register", userData);
+    if (data.success) {
+      const cookieStore = await cookies()
+      cookieStore.set("accessToken", data?.data?.accessToken)
+    }
     return data.data;
   } catch (error: any) {
     throw new Error(error);
@@ -27,6 +31,20 @@ export const userLogin = async (userData: any) => {
     throw new Error(error.status);
   }
 };
+
+export const editProfile = async (userData: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.post("/auth/edit-profile", userData);
+    if (data.success) {
+      const cookieStore = await cookies()
+      cookieStore.set("accessToken", data?.data?.accessToken)
+    }
+    return data.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 
 // export const refreshToken = async () => {
 //   try {
@@ -124,6 +142,7 @@ export const getCurrentUser = async () => {
     designation: decodedToken?.designation,
     address: decodedToken?.address,
     description: decodedToken?.description,
+    about: decodedToken?.about,
   };
   return decodedUser;
 };

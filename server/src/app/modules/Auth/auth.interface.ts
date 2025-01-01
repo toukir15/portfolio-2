@@ -13,6 +13,7 @@ export type TRegisterUser = {
   designation: string
   description: string
   profilePhoto: string
+  about: string
   skill: Types.ObjectId
   social: Types.ObjectId
 }

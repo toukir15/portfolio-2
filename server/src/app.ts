@@ -29,7 +29,7 @@ app.use('/api/v1', express.json(), routes)
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.status(httpStatus.OK).json({
     success: true,
-    message: 'Welcome to the GardenWise API',
+    message: 'Welcome to the Toukir Portfolio API',
   })
 })
 
@@ -37,6 +37,6 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 app.use(globalErrorHandler)
 
 // Handle unmatched routes (404)
-app.use('*', notFound)
+// app.use('*', notFound)
 
 export default app

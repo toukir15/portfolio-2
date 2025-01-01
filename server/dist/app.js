@@ -24,7 +24,7 @@ app.use('/api/v1', express_1.default.json(), routes_1.default);
 app.get('/', (req, res, next) => {
     res.status(http_status_1.default.OK).json({
         success: true,
-        message: 'Welcome to the GardenWise API',
+        message: 'Welcome to the Toukir Portfolio API',
     });
 });
 // Global error handler

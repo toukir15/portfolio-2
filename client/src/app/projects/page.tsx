@@ -1,6 +1,18 @@
 import Image from "next/image"; // Import the Image component
 import ProjectActions from "@/src/components/project/ProjectActions";
 import { getProjects } from "@/src/services/project/query";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: {
+        default: "Toukir Ahmed  | Project",
+        template: ``,
+    },
+    description: "",
+    icons: {
+        icon: "/vscode.svg",
+    },
+};
 
 export default async function Projects() {
     const { data } = await getProjects()

@@ -21,7 +21,6 @@ const AppError_1 = __importDefault(require("../../errors/AppError"));
 const createUserIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // check user is exist or not
     const isUserExist = yield user_model_1.User.findOne({ email: payload.email });
-    console.log(payload);
     if (isUserExist) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, 'User is already exist');
     }

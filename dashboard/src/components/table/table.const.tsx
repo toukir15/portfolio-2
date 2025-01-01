@@ -50,4 +50,31 @@ export const projectColumns = [
   },
 ];
 
+export const blogColumns = [
+  {
+    title: "Image",
+    dataIndex: "image",
+    key: "image",
+    render: (logo: string) => (
+      <img
+        src={logo}
+        alt="logo"
+        style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 4 }}
+      />
+    ),
+  },
+  {
+    title: "Author",
+    dataIndex: "author",
+    key: "author",
+  },
+  {
+    title: "Published",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    render: (createdAt: string) => (
+      <Tag color="green">{createdAt}</Tag>
+    ),
+  },
+];
 

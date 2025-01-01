@@ -1,7 +1,10 @@
+"use client"
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from "@nextui-org/react";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Image from "next/image";
+import dynamic from "next/dynamic"; // For dynamic import of next/image
+
+// Dynamically import next/image to prevent SSR issues
+const Image = dynamic(() => import("next/image"), { ssr: false });
 
 type FormField = {
     name: string;
@@ -16,27 +19,19 @@ interface ReusableModalProps {
     onSubmit: (data: any) => void;
     title: string;
     fields: FormField[];
-    hookFormValues: any
+    hookFormValues: any;
 }
 
 export const CustomModal = ({ isOpen, onClose, onSubmit, title, fields, hookFormValues }: ReusableModalProps) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [imageError, setImageError] = useState<string>("");
 
-    const {
-        register,
-        handleSubmit,
-        errors,
-        setValue,
-        reset,
-        clearErrors,
-    } = hookFormValues
+    const { register, handleSubmit, errors, setValue, reset, clearErrors } = hookFormValues;
 
     // Handle image preview and validation
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            // Validate file type and size
             const fileType = file.type.split("/")[0];
             const fileSize = file.size / 1024 / 1024; // size in MB
 
@@ -106,7 +101,6 @@ export const CustomModal = ({ isOpen, onClose, onSubmit, title, fields, hookForm
                                                         />
                                                     </div>
                                                 )}
-                                                {/* Display image error if any */}
                                                 {imageError && (
                                                     <p className="text-red-500 text-sm mt-1">{imageError}</p>
                                                 )}

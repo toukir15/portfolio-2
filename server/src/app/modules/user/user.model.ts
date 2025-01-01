@@ -9,9 +9,10 @@ const userSchema = new Schema<TRegisterUser>(
     designation: { type: String, required: true },
     address: { type: String, required: true },
     description: { type: String, required: true },
+    about: { type: String, default: "" },
     profilePhoto: { type: String, required: true },
     social: { type: Schema.ObjectId, default: null, ref: 'Social' },
-    skill: { type: Schema.ObjectId, default: null, ref: 'Skill' },
+    skill: [{ type: Schema.ObjectId, default: [], ref: 'Skill' }],
   },
   { timestamps: true },
 )

@@ -7,6 +7,7 @@ export type TUser = {
   address: string
   designation: string
   description: string
+  about: string
   social: Types.ObjectId
-  skill: Types.ObjectId
+  skill: Types.ObjectId[]
 }

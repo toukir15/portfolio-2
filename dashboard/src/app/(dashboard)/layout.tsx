@@ -1,26 +1,25 @@
 "use client"
 import "@/src/styles/globals.css";
-import clsx from "clsx";
-
-import { fontMono } from "@/src/config/fonts";
 
 import "@/src/styles/globals.css";
 import { Layout, Menu, Breadcrumb, theme } from "antd";
 import { useState } from "react";
-import { FaChartPie, FaRegUser } from "react-icons/fa";
+import { FaBlogger } from "react-icons/fa";
+import { GiSkills } from "react-icons/gi";
 import Link from "next/link";
-import { MdPayment } from "react-icons/md";
 import { GrAppsRounded } from "react-icons/gr";
 import { usePathname } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import DashboardNav from "@/src/components/shared/DashboardNav";
+import Image from "next/image";
+import logo from "../../../public/vscode.svg"
 
 const { Header, Content, Sider } = Layout;
 const items = [
     {
         label: "Profile",
         key: "1",
-        icon: <FaUser size={20} />,
+        icon: <FaUser size={18} />,
         link: "/",
     },
     {
@@ -30,16 +29,16 @@ const items = [
         link: "/projects",
     },
     {
-        label: "Users",
+        label: "Skill",
         key: "3",
-        icon: <FaRegUser size={20} />,
-        link: "/admin/users",
+        icon: <GiSkills size={20} />,
+        link: "/skill",
     },
     {
-        label: "Payments",
+        label: "Blog",
         key: "4",
-        icon: <MdPayment size={20} />,
-        link: "/admin/payments",
+        icon: <FaBlogger size={20} />,
+        link: "/blog",
     },
 ];
 
@@ -77,16 +76,16 @@ export default function RootLayout({
                         className="flex justify-center items-center gap-1 px-2 py-4"
                     >
                         <div>
-                            {/* <Image
-              src={logo}
-              className="xl:h-[30px] h-[25px] w-[25px] xl:w-[30px]"
-              alt="logo"
-            /> */}
+                            <Image
+                                src={logo}
+                                className="xl:h-[23px] h-[25px] w-[25px] xl:w-[30px]"
+                                alt="logo"
+                            />
                         </div>
                         {/* Conditionally render text based on the collapsed state */}
                         {!collapsed && (
-                            <span className="text-xl font-medium relative top-1 text-white">
-                                Garden-Wise
+                            <span className="text-xl font-medium relative  text-white">
+                                Toukir A.
                             </span>
                         )}
                     </Link>

@@ -1,8 +1,9 @@
+import envConfig from "@/src/config/envConfig";
+
 export const sendEmail = async (data: any) => {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/v1/social/send-email`,
-      // `https://protfolioserver.vercel.app/api/v1/social/send-email`,
+      `${envConfig.server_url}/api/v1/social/send-email`,
       {
         method: 'POST',
         headers: {

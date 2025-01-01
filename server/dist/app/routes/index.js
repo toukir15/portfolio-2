@@ -8,6 +8,8 @@ const user_route_1 = require("../modules/user/user.route");
 const auth_route_1 = require("../modules/Auth/auth.route");
 const social_route_1 = require("../modules/social/social.route");
 const project_route_1 = require("../modules/project/project.route");
+const skill_route_1 = require("../modules/skill/skill.route");
+const blog_route_1 = require("../modules/blog/blog.route");
 const router = express_1.default.Router();
 const moduleRoutes = [
     {
@@ -25,6 +27,14 @@ const moduleRoutes = [
     {
         path: '/project',
         route: project_route_1.ProjectRouter,
+    },
+    {
+        path: '/skill',
+        route: skill_route_1.SkillRouter,
+    },
+    {
+        path: '/blog',
+        route: blog_route_1.BlogRouter,
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

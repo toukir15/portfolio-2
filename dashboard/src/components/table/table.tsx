@@ -23,7 +23,7 @@ export const CustomTable = ({
   loading,
   pageSize = 12,
 }: CustomTableProps) => {
-  const tableColumns = actions.length
+  const tableColumns = actions?.length
     ? [
       ...columns,
       {

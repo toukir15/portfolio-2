@@ -28,3 +28,32 @@
 .ant-spin-dot-item {
   background-color: #10b981 !important; /* Tailwind's green-500 */
 }
+
+.jodit-wysiwyg{
+  padding:15px 25px !important;
+}
+
+.jodit-ui-group_group_other{
+display: none !important;
+}
+
+.jodit-ui-group{
+  background-color: #F4F4F5 !important;
+}
+
+.jodit-container{
+  margin-top: 15px;
+}
+
+.css-hlgwow{
+  padding: 6px !important;
+}
+.css-13cymwt-control{
+  padding: 6px !important;
+}
+.css-t3ipsp-control{
+  padding: 6px !important;
+}
+.css-13cymwt-control{
+  background-color:#F4F4F5 !important
+}

@@ -3,4 +3,8 @@ export type TSocial = {
     email?: string
     linkedin?: string
     github?: string
+    facebook?: string
+    instagram?: string
+    whatsApp?: string
+    twitter?: string
 }

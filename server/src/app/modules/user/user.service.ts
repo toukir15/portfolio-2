@@ -8,7 +8,6 @@ import AppError from '../../errors/AppError'
 const createUserIntoDB = async (payload: TUser) => {
   // check user is exist or not
   const isUserExist = await User.findOne({ email: payload.email })
-  console.log(payload)
   if (isUserExist) {
     throw new AppError(httpStatus.BAD_REQUEST, 'User is already exist')
   }

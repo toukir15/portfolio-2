@@ -8,7 +8,8 @@ import { SkillServices } from './skill.services'
 
 const createSkill = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        const result = await SkillServices.createSkillIntoDB(req.body.data, req.file)
+        const userId = req.user._id
+        const result = await SkillServices.createSkillIntoDB(req.body.data, req.file, userId)
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,

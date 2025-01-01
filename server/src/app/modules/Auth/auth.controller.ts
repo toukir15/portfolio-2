@@ -80,7 +80,7 @@ const sendForgetEmail = catchAsync(async (req, res) => {
 })
 
 const editProfile = catchAsync(async (req, res) => {
-  const data = req.body
+  const data = JSON.parse(req.body.data)
   const userId = req.user._id
   const profilePhoto = req.file
   const result = await AuthServices.editProfile(data, profilePhoto, userId)

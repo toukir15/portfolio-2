@@ -1,8 +1,22 @@
+import { User } from '../user/user.model'
 import { TSocial } from './social.interface'
 import Social from './social.model'
 
-const createSocialIntoDB = async (payload: TSocial) => {
+const createSocialIntoDB = async (payload: TSocial, userId: string) => {
+    const findSocial = await Social.find()
+    if (findSocial.length > 0) {
+        throw new Error("Social links already exist");
+    }
     const result = await Social.create(payload)
+    await User.findByIdAndUpdate(userId, {
+        social: result.id
+    })
+    return result
+}
+
+const updateSocialIntoDB = async (payload: TSocial, id: string) => {
+    const findUser = await User.findById(id)
+    const result = await Social.findByIdAndUpdate(findUser.social, payload)
     return result
 }
 
@@ -51,5 +65,6 @@ const sendEmailToMe = async (payload: any) => {
 export const SocialServices = {
     createSocialIntoDB,
     sendEmailToMe,
+    updateSocialIntoDB,
     getSocialFromDB
 }

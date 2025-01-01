@@ -1,3 +1,5 @@
+import envConfig from "@/src/config/envConfig";
+
 export const getSocial = async () => {
     try {
         const fetchOption = {
@@ -7,8 +9,7 @@ export const getSocial = async () => {
         };
 
         const res = await fetch(
-            // `https://protfolioserver.vercel.app/api/v1/social`,
-            `http://localhost:5000/api/v1/social`,
+            `${envConfig.server_url}/api/v1/social`,
             fetchOption
         );
 

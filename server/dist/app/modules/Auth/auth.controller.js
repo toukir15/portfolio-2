@@ -30,7 +30,9 @@ const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const auth_service_1 = require("./auth.service");
 const catchAsync_1 = require("../../utils/catchAsync");
 const registerUser = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield auth_service_1.AuthServices.registerUser(req.body);
+    var _a;
+    const registerData = Object.assign(Object.assign({}, JSON.parse(req.body.data)), { profilePhoto: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path });
+    const result = yield auth_service_1.AuthServices.registerUser(registerData);
     const { refreshToken, accessToken } = result;
     res.cookie('refreshToken', refreshToken, {
         secure: config_1.default.NODE_ENV === 'production',
@@ -93,7 +95,7 @@ const sendForgetEmail = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(voi
     });
 }));
 const editProfile = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
+    const data = JSON.parse(req.body.data);
     const userId = req.user._id;
     const profilePhoto = req.file;
     const result = yield auth_service_1.AuthServices.editProfile(data, profilePhoto, userId);

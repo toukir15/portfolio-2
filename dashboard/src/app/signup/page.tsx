@@ -73,7 +73,7 @@ export default function LoginPage() {
     return (
         <div className="flex h-screen w-full">
             {/* Left Side */}
-            <div className="flex w-1/2 items-center justify-center px-20 h-screen overflow-y-auto">
+            <div className="flex w-full lg:w-1/2 items-center justify-center px-10 md:px-20 h-screen overflow-y-auto">
                 <div className="w-full max-w-md">
                     <div className="mb-10">
                         <h1 className="text-3xl text-gray-900 font-bold">Sign in</h1>
@@ -196,7 +196,7 @@ export default function LoginPage() {
             </div>
 
             {/* Right Side */}
-            <div className="w-1/2 bg-gradient-to-br from-blue-950 to-gray-900 flex items-center justify-center">
+            <div className=" w-1/2 bg-gradient-to-br from-blue-950 to-gray-900 flex hidden lg:block items-center justify-center">
                 <div className="text-center">
                     <h2 className="text-white text-4xl font-bold mb-6">
                         Welcome to Toukir Dashboard

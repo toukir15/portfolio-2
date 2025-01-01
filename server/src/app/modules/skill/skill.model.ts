@@ -5,6 +5,7 @@ import { TSkill } from './skill.interface';
 const TSkillSchema: Schema<TSkill> = new Schema({
     name: { type: String, required: true },
     image: { type: String, required: true },
+    category: { type: String, required: true },
 });
 
 // Create the model

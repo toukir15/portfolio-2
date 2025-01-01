@@ -30,6 +30,10 @@ const TSocialSchema = new mongoose_1.Schema({
     email: { type: String, required: false },
     linkedin: { type: String, required: false },
     github: { type: String, required: false },
+    facebook: { type: String, required: false },
+    instagram: { type: String, required: false },
+    whatsApp: { type: String, required: false },
+    twitter: { type: String, required: false },
 });
 // Create the model
 const Social = mongoose_1.default.model('social', TSocialSchema);

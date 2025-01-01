@@ -14,14 +14,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectServices = void 0;
 const project_model_1 = __importDefault(require("./project.model"));
+const getProjectsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield project_model_1.default.find();
+    return result;
+});
 const createProjectIntoDB = (data, file) => __awaiter(void 0, void 0, void 0, function* () {
     const parseData = JSON.parse(data);
     parseData.image = file.path;
     const result = yield project_model_1.default.create(parseData);
     return result;
 });
-const getProjectsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield project_model_1.default.find();
+const updateProjectIntoDB = (data, file, id) => __awaiter(void 0, void 0, void 0, function* () {
+    const parseData = JSON.parse(data);
+    if (file) {
+        parseData.image = file.path;
+    }
+    const result = yield project_model_1.default.findByIdAndUpdate(id, parseData, { new: true });
+    return result;
+});
+const deleteProjectFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield project_model_1.default.findByIdAndDelete(id);
     return result;
 });
 // const updateUserIntoDB = async (id: string) => {
@@ -34,5 +46,7 @@ const getProjectsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
 // }
 exports.ProjectServices = {
     createProjectIntoDB,
-    getProjectsFromDB
+    getProjectsFromDB,
+    updateProjectIntoDB,
+    deleteProjectFromDB
 };

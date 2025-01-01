@@ -18,11 +18,21 @@ const http_status_1 = __importDefault(require("http-status"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const social_services_1 = require("./social.services");
 const createSocial = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield social_services_1.SocialServices.createSocialIntoDB(req.body);
+    const userId = req.user._id;
+    const result = yield social_services_1.SocialServices.createSocialIntoDB(req.body, userId);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'Create social document successfully',
+        data: result,
+    });
+}));
+const updateSocial = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield social_services_1.SocialServices.updateSocialIntoDB(req.body, req.user._id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Update social document successfully',
         data: result,
     });
 }));
@@ -47,5 +57,6 @@ const sendEmailToMe = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter
 exports.SocialControllers = {
     createSocial,
     sendEmailToMe,
-    getSocial
+    getSocial,
+    updateSocial
 };

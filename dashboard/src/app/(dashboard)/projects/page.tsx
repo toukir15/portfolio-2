@@ -160,7 +160,7 @@ export default function PostManagement() {
                         setIsEditMode(false);
                     }}
                     radius="sm"
-                    className="px-8 bg-indigo-500 text-white font-medium"
+                    className="px-8 mt-8 lg:mt-0 bg-indigo-500 text-white font-medium"
                 >
                     Add Project
                 </Button>

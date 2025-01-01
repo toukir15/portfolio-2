@@ -13,9 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocialServices = void 0;
+const user_model_1 = require("../user/user.model");
 const social_model_1 = __importDefault(require("./social.model"));
-const createSocialIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+const createSocialIntoDB = (payload, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const findSocial = yield social_model_1.default.find();
+    if (findSocial.length > 0) {
+        throw new Error("Social links already exist");
+    }
     const result = yield social_model_1.default.create(payload);
+    yield user_model_1.User.findByIdAndUpdate(userId, {
+        social: result.id
+    });
+    return result;
+});
+const updateSocialIntoDB = (payload, id) => __awaiter(void 0, void 0, void 0, function* () {
+    const findUser = yield user_model_1.User.findById(id);
+    const result = yield social_model_1.default.findByIdAndUpdate(findUser.social, payload);
     return result;
 });
 const getSocialFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,5 +69,6 @@ const sendEmailToMe = (payload) => __awaiter(void 0, void 0, void 0, function* (
 exports.SocialServices = {
     createSocialIntoDB,
     sendEmailToMe,
+    updateSocialIntoDB,
     getSocialFromDB
 };
