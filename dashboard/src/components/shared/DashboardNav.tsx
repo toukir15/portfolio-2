@@ -4,6 +4,8 @@ import { IUserProviderValues, UserContext } from '@/src/context/user.provider';
 import Image from 'next/image';
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Updated import for useRouter
+import { logout } from '@/src/services/auth';
+import Link from 'next/link';
 
 export default function DashboardNav() {
     const { user } = useContext(UserContext) as IUserProviderValues;
@@ -31,9 +33,10 @@ export default function DashboardNav() {
     }, []);
 
     // Handle navigation for profile and logout
-    const handleNavigation = (route: string) => {
-        setIsDropdownOpen(false); // Close the dropdown
-        router.push(route); // Navigate to the desired route
+    const handleNavigation = () => {
+        logout()
+        setIsDropdownOpen(false);
+        router.push('/login');
     };
 
     return (
@@ -45,7 +48,7 @@ export default function DashboardNav() {
                         src={user.profilePhoto}
                         alt={`${user.name}'s profile photo`}
                         width={40}
-                        height={40}
+                        height={30}
                         className="rounded-full cursor-pointer"
                         onClick={toggleDropdown}
                     />
@@ -56,20 +59,19 @@ export default function DashboardNav() {
                             ref={dropdownRef}
                             className="absolute right-8 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
                         >
-                            <ul className="py-1">
-                                <li
+                            <div className="py-1 font-medium flex flex-col">
+                                <Link href={"/"}
                                     className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                                    onClick={() => handleNavigation('/')}
                                 >
                                     Profile
-                                </li>
-                                <li
-                                    className="px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer"
-                                    onClick={() => handleNavigation('/login')}
+                                </Link>
+                                <button
+                                    className="px-4 py-2 text-start text-sm text-red-600 hover:bg-gray-100 cursor-pointer"
+                                    onClick={() => handleNavigation()}
                                 >
                                     Logout
-                                </li>
-                            </ul>
+                                </button>
+                            </div>
                         </div>
                     )}
                 </>

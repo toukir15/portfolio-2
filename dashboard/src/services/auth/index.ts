@@ -147,8 +147,8 @@ export const getCurrentUser = async () => {
   return decodedUser;
 };
 
-// export const logout = () => {
-//   cookies().delete("accessToken");
-//   cookies().delete("refreshToken");
+export const logout = async () => {
+  const cookieStore = await cookies()
+  cookieStore.delete("accessToken");
+};
 
-// };

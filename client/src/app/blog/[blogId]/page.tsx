@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogDetails({ params }: any) {
-    const { blogId } = await params;
+    const { blogId } = params;
     const { data: blogPost } = await getBlog(blogId);
 
     const formattedDate = dayjs(blogPost.createdAt).format("D MMMM YYYY");

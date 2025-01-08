@@ -1,7 +1,6 @@
 import express from 'express'
 import { AuthControllers } from './auth.controller'
 import { multerUpload } from '../../config/multer.config'
-import { parseBody } from '../../middlewares/bodyParser'
 import auth from '../../middlewares/auth'
 
 const router = express.Router()

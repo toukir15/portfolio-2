@@ -33,18 +33,13 @@ const registerUser = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
     var _a;
     const registerData = Object.assign(Object.assign({}, JSON.parse(req.body.data)), { profilePhoto: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path });
     const result = yield auth_service_1.AuthServices.registerUser(registerData);
-    const { refreshToken, accessToken } = result;
-    res.cookie('refreshToken', refreshToken, {
-        secure: config_1.default.NODE_ENV === 'production',
-        httpOnly: true,
-    });
+    const { accessToken } = result;
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'User registered in successfully!',
         data: {
             accessToken,
-            refreshToken,
         },
     });
 }));

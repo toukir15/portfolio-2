@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { getCurrentUser } from "../services/auth";
+import Cookies from "js-cookie"
 
 
 type IUser = {
@@ -37,9 +38,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser(fetchedUser);
   }
 
+  const accessToken = Cookies.get("accessToken")
+
   useEffect(() => {
     handleUser();
-  }, []);
+  }, [accessToken]);
 
   return (
     <UserContext.Provider

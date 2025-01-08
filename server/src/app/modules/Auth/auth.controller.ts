@@ -11,18 +11,13 @@ const registerUser = catchAsync(async (req, res) => {
     profilePhoto: req.file?.path
   }
   const result = await AuthServices.registerUser(registerData)
-  const { refreshToken, accessToken } = result
-  res.cookie('refreshToken', refreshToken, {
-    secure: config.NODE_ENV === 'production',
-    httpOnly: true,
-  })
+  const { accessToken } = result
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User registered in successfully!',
     data: {
       accessToken,
-      refreshToken,
     },
   })
 })

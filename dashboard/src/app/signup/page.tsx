@@ -196,7 +196,7 @@ export default function LoginPage() {
             </div>
 
             {/* Right Side */}
-            <div className=" w-1/2 bg-gradient-to-br from-blue-950 to-gray-900 flex hidden lg:block items-center justify-center">
+            <div className="w-1/2 bg-gradient-to-br h-screen from-blue-950 to-gray-900 hidden lg:flex items-center justify-center">
                 <div className="text-center">
                     <h2 className="text-white text-4xl font-bold mb-6">
                         Welcome to Toukir Dashboard

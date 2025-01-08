@@ -5,16 +5,17 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler'
 import routes from './app/routes'
 import cookieParser from 'cookie-parser'
 import notFound from './app/middlewares/notFound'
-import config from './app/config'
+
 
 const app: Application = express()
 
 app.use(
   cors({
-    origin: [config.client_url as string],
+    origin: '*',
     credentials: true,
   }),
-)
+);
+
 
 app.options('*', cors())
 
